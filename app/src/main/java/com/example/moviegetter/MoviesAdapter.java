@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
@@ -58,11 +59,14 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
         return moviesList.size();
     }
 
-    private class OnClickListener implements View.OnClickListener {
+    private class OnClickListener extends AppCompatActivity implements View.OnClickListener {
         @Override
         public void onClick(View view) {
             int itemPosition = rvMovies.getChildLayoutPosition(view);
             long item = moviesList.get(itemPosition).getId();
+            if (item == R.id.movie_id){
+                getSupportFragmentManager().beginTransaction().replace(R.id.movieFragment, new MovieFragment()).commit();
+            }
             /// navigate to new page and display same info, but with the description
         }
     }

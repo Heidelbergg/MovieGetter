@@ -6,17 +6,6 @@
     android:orientation="vertical"
     android:id="@+id/movieFragment"
     >
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:cardCornerRadius="20dp"
-        android:cardElevation="10dp"
-        android:cardMaxElevation="12dp"
-        android:cardPreventCornerOverlap="true"
-        android:cardUseCompatPadding="true" />
-
     <TextView
         android:id="@+id/movie_title"
         android:layout_width="wrap_content"
@@ -39,4 +28,6 @@
         android:paddingTop="6sp"
         android:text="description"
         android:textSize="12sp" />
+
+
 </LinearLayout>
