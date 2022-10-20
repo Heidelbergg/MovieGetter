@@ -23,7 +23,6 @@ import java.util.Map;
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder> {
     Context ctx;
     List<Movies> moviesList;
-    Map movies = new HashMap();
     RecyclerView rvMovies;
     final View.OnClickListener onClickListener = new OnClickListener();
     public static class ViewHolder extends  RecyclerView.ViewHolder{
@@ -36,7 +35,6 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
             id = itemView.findViewById(R.id.movie_id);
             title = itemView.findViewById(R.id.movie_title);
             year = itemView.findViewById(R.id.movie_year);
-            //description = itemView.findViewById(R.id.movie_description);
         }
     }
 
@@ -62,10 +60,6 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
         holder.id.setText(""+movie.getId());
         holder.title.setText(""+movie.getYear());
         holder.year.setText(""+movie.getTitle());
-        movies.put("title", movie.getTitle());
-        movies.put("year", movie.getYear());
-        movies.put("description", movie.getDescription());
-        //holder.description.setText(""+movie.getDescription());
     }
 
     @Override
@@ -78,16 +72,23 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
         @Override
         public void onClick(View view) {
             int itemPosition = rvMovies.getChildLayoutPosition(view);
-            long item = moviesList.get(itemPosition).getId();
-            Toast.makeText(ctx, String.valueOf(item), Toast.LENGTH_SHORT).show();
+            long year = moviesList.get(itemPosition).getYear();
+            String title = moviesList.get(itemPosition).getTitle();
+            String description = moviesList.get(itemPosition).getDescription();
+
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            Bundle bundle = new Bundle();
-            System.out.println(movies);
-            /*bundle.putString("title", );
-            bundle.putString("year", );
-            bundle.putString("description", );*/
 
+            Bundle bundle = new Bundle();
+            bundle.putString("title", title);
+            bundle.putString("year", String.valueOf(year));
+            bundle.putString("description", description);
+            
+            MovieFragment movieFragment = new MovieFragment();
+            movieFragment.setArguments(bundle);
+            fragmentTransaction.replace(R.id.mainFrameLayout, movieFragment).commit();
+
+            //fragmentTransaction.replace(R.id.mainFrameLayout, movieFragment).commit();
         }
     }
 }

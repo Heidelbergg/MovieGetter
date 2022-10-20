@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -57,7 +58,16 @@ public class MovieFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_movie, container, false);
+        View view = inflater.inflate(R.layout.fragment_movie, container, false);
+
+        TextView titleTextView = view.findViewById(R.id.movie_title);
+        TextView yearTextView = view.findViewById(R.id.movie_year);
+        TextView descriptionTextView = view.findViewById(R.id.movie_description);
+
+        titleTextView.setText(this.getArguments().getString("title"));
+        yearTextView.setText(this.getArguments().getString("year"));
+        descriptionTextView.setText(this.getArguments().getString("description"));
+
+        return view;
     }
 }
