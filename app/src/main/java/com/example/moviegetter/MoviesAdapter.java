@@ -62,6 +62,9 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
         holder.id.setText(""+movie.getId());
         holder.title.setText(""+movie.getYear());
         holder.year.setText(""+movie.getTitle());
+        movies.put("title", movie.getTitle());
+        movies.put("year", movie.getYear());
+        movies.put("description", movie.getDescription());
         //holder.description.setText(""+movie.getDescription());
     }
 
