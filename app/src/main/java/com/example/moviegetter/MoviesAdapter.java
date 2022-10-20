@@ -29,7 +29,6 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
         TextView id;
         TextView title;
         TextView year;
-        TextView description;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             id = itemView.findViewById(R.id.movie_id);
@@ -87,8 +86,6 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
             MovieFragment movieFragment = new MovieFragment();
             movieFragment.setArguments(bundle);
             fragmentTransaction.replace(R.id.mainFrameLayout, movieFragment).commit();
-
-            //fragmentTransaction.replace(R.id.mainFrameLayout, movieFragment).commit();
         }
     }
 }
