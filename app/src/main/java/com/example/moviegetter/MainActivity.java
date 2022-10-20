@@ -26,8 +26,8 @@ public class MainActivity extends AppCompatActivity {
         dbAdapter = new DBAdapter(this);
         movieList = dbAdapter.getAllMovies();
         rvMovies = findViewById(R.id.rvMovies);
-        rvMovies.setLayoutManager(layoutManager);
         layoutManager = new LinearLayoutManager(this);
+        rvMovies.setLayoutManager(layoutManager);
         moviesAdapter = new MoviesAdapter(this, movieList, rvMovies);
         rvMovies.setAdapter(moviesAdapter);
     }

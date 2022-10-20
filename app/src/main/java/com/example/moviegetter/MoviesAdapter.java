@@ -1,31 +1,42 @@
 package com.example.moviegetter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder> {
     Context ctx;
     List<Movies> moviesList;
+    Map movies = new HashMap();
     RecyclerView rvMovies;
     final View.OnClickListener onClickListener = new OnClickListener();
     public static class ViewHolder extends  RecyclerView.ViewHolder{
-        TextView rowID;
-        TextView rowTitle;
-        TextView rowYear;
-        TextView rowDescription;
+        TextView id;
+        TextView title;
+        TextView year;
+        TextView description;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            rowID = itemView.findViewById(R.id.movie_id);
-            rowTitle = itemView.findViewById(R.id.movie_title);
-            rowYear = itemView.findViewById(R.id.movie_year);
-            rowDescription = itemView.findViewById(R.id.movie_description);
+            id = itemView.findViewById(R.id.movie_id);
+            title = itemView.findViewById(R.id.movie_title);
+            year = itemView.findViewById(R.id.movie_year);
+            //description = itemView.findViewById(R.id.movie_description);
         }
     }
 
@@ -48,10 +59,10 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull MoviesAdapter.ViewHolder holder, int position) {
         Movies movie = moviesList.get(position);
-        holder.rowID.setText(""+movie.getId());
-        holder.rowYear.setText(""+movie.getYear());
-        holder.rowTitle.setText(""+movie.getTitle());
-        holder.rowDescription.setText(""+movie.getDescription());
+        holder.id.setText(""+movie.getId());
+        holder.title.setText(""+movie.getYear());
+        holder.year.setText(""+movie.getTitle());
+        //holder.description.setText(""+movie.getDescription());
     }
 
     @Override
@@ -59,15 +70,21 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
         return moviesList.size();
     }
 
+
     private class OnClickListener extends AppCompatActivity implements View.OnClickListener {
         @Override
         public void onClick(View view) {
             int itemPosition = rvMovies.getChildLayoutPosition(view);
             long item = moviesList.get(itemPosition).getId();
-            if (item == R.id.movie_id){
-                getSupportFragmentManager().beginTransaction().replace(R.id.movieFragment, new MovieFragment()).commit();
-            }
-            /// navigate to new page and display same info, but with the description
+            Toast.makeText(ctx, String.valueOf(item), Toast.LENGTH_SHORT).show();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            Bundle bundle = new Bundle();
+            System.out.println(movies);
+            /*bundle.putString("title", );
+            bundle.putString("year", );
+            bundle.putString("description", );*/
+
         }
     }
 }

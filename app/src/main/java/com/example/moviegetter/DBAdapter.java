@@ -12,35 +12,38 @@ import java.util.List;
 
 public class DBAdapter {
 
-    DatabaseHelper helper;
+    DBHelper helper;
     SQLiteDatabase db;
     List<Movies> movieList = new ArrayList<>();
 
     public DBAdapter(Context ctx) {
-        helper = new DatabaseHelper(ctx);
+        helper = new DBHelper(ctx);
         db = helper.getWritableDatabase();
     }
 
     public List<Movies> getAllMovies(){
-        String columns[] = {DatabaseHelper.KEY_ROWID, DatabaseHelper.KEY_TITLE, DatabaseHelper.KEY_YEAR, DatabaseHelper.KEY_DESCRIPTION};
-        Cursor cursor = db.query(DatabaseHelper.TABLE_NAME, columns,null, null,null, null, null, null);
+        String columns[] = {DBHelper.KEY_ROWID, DBHelper.KEY_YEAR, DBHelper.KEY_TITLE, DBHelper.KEY_DESCRIPTION};
+        Cursor cursor = db.query(DBHelper.TABLE_NAME, columns,null, null,null, null, null, null);
         while(cursor.moveToNext()){
-            int index1 = cursor.getColumnIndex(DatabaseHelper.KEY_ROWID);
-            int rowID = cursor.getInt(index1);
-            int index2 = cursor.getColumnIndex(DatabaseHelper.KEY_TITLE);
-            String title = cursor.getString(index2);
-            int index3 = cursor.getColumnIndex(DatabaseHelper.KEY_YEAR);
-            Integer year = Integer.valueOf(cursor.getString(index3));
-            int index4 = cursor.getColumnIndex(DatabaseHelper.KEY_DESCRIPTION);
-            String description = cursor.getString(index4);
+            int idIndex = cursor.getColumnIndex(DBHelper.KEY_ROWID);
+            int rowID = cursor.getInt(idIndex);
+
+            int yearIndex = cursor.getColumnIndex(DBHelper.KEY_YEAR);
+            int year = cursor.getInt(yearIndex);
+
+            int titleIndex = cursor.getColumnIndex(DBHelper.KEY_TITLE);
+            String title = cursor.getString(titleIndex);
+
+            int descriptionIndex = cursor.getColumnIndex(DBHelper.KEY_DESCRIPTION);
+            String description = cursor.getString(descriptionIndex);
+
             Movies movie = new Movies(rowID, year, title, description);
             movieList.add(movie);
         }
         return movieList;
     }
 
-    private static class DatabaseHelper extends SQLiteOpenHelper {
-
+    private static class DBHelper extends SQLiteOpenHelper {
         private static final String DATABASE_NAME = "movies.db";
         private static final String TABLE_NAME = "movies";
         private static final int DATABASE_VERSION = 1;
@@ -48,12 +51,11 @@ public class DBAdapter {
         private static final String KEY_TITLE="title";
         private static final String KEY_YEAR = "year";
         private static final String KEY_DESCRIPTION = "description";
-        private static final String CREATE_TABLE = "create table "+ TABLE_NAME+
-                " ("+ KEY_ROWID+" integer primary key autoincrement, "+ KEY_TITLE + " title, "+ KEY_YEAR + " year, "+ KEY_DESCRIPTION+ " desription)";
+        private static final String CREATE_TABLE = "create table "+ TABLE_NAME+ " ("+ KEY_ROWID+" integer primary key, "+ KEY_YEAR + " year, "+ KEY_TITLE + " title, "+ KEY_DESCRIPTION+ " desription)";
         private static final String DROP_TABLE = "drop table if exists "+ TABLE_NAME;
         private Context context;
 
-        public DatabaseHelper(Context context) {
+        public DBHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
             this.context = context;
         }

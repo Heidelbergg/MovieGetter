@@ -1,28 +1,29 @@
 package com.example.moviegetter;
 
 import android.content.Context;
+import android.net.Uri;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URL;
 
 public class PopulateDB {
 
     public static void copyDB(Context context){
         try{
-            String destPath = "/data/data/"+ context.getPackageName() + "/databases";
-            File f = new File(destPath);
-            if(!f.exists()){
-                f.mkdir();
-                // Copy the db from assets folder into the databases folder
-                rawCopy(context.getAssets().open("movies.db"), new FileOutputStream(destPath + "/movies.db"));
+            String destination = "/data/data/"+ context.getPackageName() + "/databases";
+            File file = new File(destination);
+
+            if(!file.exists()){
+                file.mkdir();
+                rawCopy(context.getAssets().open("movies.db"), new FileOutputStream(destination + "/movies.db"));
             }
-        }catch (FileNotFoundException e){
-            e.printStackTrace();
-        }catch (IOException e){
+        } catch (IOException e){
             e.printStackTrace();
         }
     }

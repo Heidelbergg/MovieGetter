@@ -2,11 +2,11 @@ package com.example.moviegetter;
 
 public class Movies {
     private long id;
-    private Integer year;
+    private long year;
     private String title;
     private String description;
 
-    public Movies(long id, Integer year, String title, String description) {
+    public Movies(long id, long year, String title, String description) {
         this.id = id;
         this.year = year;
         this.title = title;
@@ -17,7 +17,7 @@ public class Movies {
         return id;
     }
 
-    public Integer getYear() {
+    public long getYear() {
         return year;
     }
 
