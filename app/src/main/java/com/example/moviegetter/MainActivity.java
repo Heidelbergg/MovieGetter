@@ -2,6 +2,7 @@ package com.example.moviegetter;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,8 +21,6 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView.LayoutManager layoutManager;
     List<Movies> movieList = new ArrayList<>();
 
-    FrameLayout frameLayout;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,5 +33,11 @@ public class MainActivity extends AppCompatActivity {
         rvMovies.setLayoutManager(layoutManager);
         moviesAdapter = new MoviesAdapter(this, movieList, rvMovies);
         rvMovies.setAdapter(moviesAdapter);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .add(R.id.mainFrameLayout, MovieFragment.class, null)
+                .setReorderingAllowed(true)
+                .commit();
     }
 }

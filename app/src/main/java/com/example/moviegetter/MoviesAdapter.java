@@ -75,9 +75,6 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
             String title = moviesList.get(itemPosition).getTitle();
             String description = moviesList.get(itemPosition).getDescription();
 
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
             Bundle bundle = new Bundle();
             bundle.putString("title", title);
             bundle.putString("year", String.valueOf(year));
@@ -85,7 +82,15 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
             
             MovieFragment movieFragment = new MovieFragment();
             movieFragment.setArguments(bundle);
-            fragmentTransaction.replace(R.id.mainFrameLayout, movieFragment).commit();
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.mainFrameLayout, MovieFragment.class, null)
+                    .setReorderingAllowed(true)
+                    .commit();
+
+            /*fragmentTransaction.attach(movieFragment);
+            fragmentTransaction.replace(R.id.mainFrameLayout, movieFragment, null).commit();*/
         }
     }
 }
