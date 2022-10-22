@@ -24,6 +24,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
     Context ctx;
     List<Movies> moviesList;
     RecyclerView rvMovies;
+    FragmentManager fragmentManager;
     final View.OnClickListener onClickListener = new OnClickListener();
     public static class ViewHolder extends  RecyclerView.ViewHolder{
         TextView id;
@@ -37,10 +38,11 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
         }
     }
 
-    public MoviesAdapter(Context ctx, List<Movies> moviesList, RecyclerView rvMovies){
+    public MoviesAdapter(Context ctx, List<Movies> moviesList, RecyclerView rvMovies, FragmentManager fragmentManager){
         this.ctx = ctx;
         this.moviesList = moviesList;
         this.rvMovies = rvMovies;
+        this.fragmentManager = fragmentManager;
     }
 
     @NonNull
@@ -83,14 +85,11 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
             MovieFragment movieFragment = new MovieFragment();
             movieFragment.setArguments(bundle);
 
-            FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
-                    .replace(R.id.mainFrameLayout, MovieFragment.class, null)
+                    .replace(R.id.mainActivity, movieFragment)
                     .setReorderingAllowed(true)
+                    .addToBackStack(null)
                     .commit();
-
-            /*fragmentTransaction.attach(movieFragment);
-            fragmentTransaction.replace(R.id.mainFrameLayout, movieFragment, null).commit();*/
         }
     }
 }

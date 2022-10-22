@@ -2,8 +2,8 @@ package com.example.moviegetter;
 
 import android.os.Bundle;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +27,7 @@ public class MovieFragment extends Fragment {
 
     public MovieFragment() {
         // Required empty public constructor
+        //super(R.layout.fragment_movie);
     }
 
     /**
@@ -59,6 +60,15 @@ public class MovieFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_movie, container, false);
+
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().onBackPressed();
+            }
+        });
 
         TextView titleTextView = view.findViewById(R.id.movie_title);
         TextView yearTextView = view.findViewById(R.id.movie_year);

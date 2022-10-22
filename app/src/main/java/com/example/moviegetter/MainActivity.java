@@ -20,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
     MoviesAdapter moviesAdapter;
     RecyclerView.LayoutManager layoutManager;
     List<Movies> movieList = new ArrayList<>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,13 +30,7 @@ public class MainActivity extends AppCompatActivity {
         rvMovies = findViewById(R.id.rvMovies);
         layoutManager = new LinearLayoutManager(this);
         rvMovies.setLayoutManager(layoutManager);
-        moviesAdapter = new MoviesAdapter(this, movieList, rvMovies);
+        moviesAdapter = new MoviesAdapter(this, movieList, rvMovies, getSupportFragmentManager());
         rvMovies.setAdapter(moviesAdapter);
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .add(R.id.mainFrameLayout, MovieFragment.class, null)
-                .setReorderingAllowed(true)
-                .commit();
     }
 }
